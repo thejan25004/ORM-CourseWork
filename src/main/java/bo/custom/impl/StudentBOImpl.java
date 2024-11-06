@@ -5,9 +5,14 @@ import bo.custom.StudentBO;
 import dao.DAOFactory;
 import dao.custom.CulinaryProgramDAO;
 import dao.custom.StudentDAO;
+import db.FactoryConfiguration;
 import dto.CulinaryProgramDTO;
 import dto.StudentDTO;
+import entity.CulinaryPrograms;
+import entity.Enrollment;
 import entity.Student;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,16 +47,41 @@ public class StudentBOImpl  implements StudentBO {
 
     @Override
     public List<CulinaryProgramDTO> getAllCulinaryProgram() {
-        return null;
+        List<CulinaryPrograms> allCulinaryProgram = culinaryProgramDAO.getAllCulinaryProgram();
+        List<CulinaryProgramDTO> allCulinaryProgramDTO = new ArrayList<>();
+
+        for (CulinaryPrograms culinaryProgram : allCulinaryProgram) {
+            allCulinaryProgramDTO.add(new CulinaryProgramDTO(culinaryProgram.getProgramId(), culinaryProgram.getProgramName(), culinaryProgram.getDuration(), culinaryProgram.getFees(), culinaryProgram.getEnrollments()));
+        }
+        return allCulinaryProgramDTO;
     }
 
     @Override
     public void saveStudentWithProgram(StudentDTO object, String value, double v) {
+        Student student = new Student(object.getStudentId(), object.getName(), object.getAddress(), object.getTel(), object.getRegistrationDate(), object.getEnrollments());
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
 
+        try {
+            session.save(student);
+
+            CulinaryPrograms programsCheckName = culinaryProgramDAO.getProgramsCheckName(value.trim());
+
+            Enrollment enrollment = new Enrollment(v,programsCheckName.getFees() - v,student,programsCheckName);
+            session.save(enrollment);
+
+            transaction.commit();
+
+        } catch (Exception e) {
+            transaction.rollback();
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public StudentDTO getStudent(String studentId) {
-        return null;
+        Student student = studentDAO.getStudent(studentId);
+        return new StudentDTO(student.getStudentId(),student.getName(),student.getAddress(),student.getTel(),student.getRegistrationDate(),student.getEnrollments());
     }
 }
