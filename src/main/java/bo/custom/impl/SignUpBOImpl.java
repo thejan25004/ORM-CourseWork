@@ -14,7 +14,7 @@ public class SignUpBOImpl implements SignUpBO {
 
     @Override
     public void signUp(UserDTO userDTO) throws UserAlreadyExistsException {
-        User user = new User(userDTO.getUserName(),userDTO.getPassword());
+        User user = new User(userDTO.getUserName(),userDTO.getPassword(),userDTO.getRole());
         userDAO.save(user);
     }
 }

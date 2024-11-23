@@ -71,7 +71,12 @@ public class HeadMainFormController {
 
     @FXML
     void btnViewOnAction(ActionEvent event) {
+        try {
+            changeForm.getChildren().setAll((Node) FXMLLoader.load(this.getClass().getResource("/viewStudentDetailsForm.fxml")));
 
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML

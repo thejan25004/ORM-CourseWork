@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Launcher extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("/headMainForm.fxml"))));
+        stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("/logInForm.fxml"))));
         //stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("LogIn");
         stage.setResizable(false);

@@ -14,6 +14,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import util.PasswordStorage;
+import javafx.scene.control.CheckBox;
+
 
 import java.io.IOException;
 
@@ -26,6 +28,13 @@ public class SignUpFormController {
 
     @FXML
     private AnchorPane signUpForm;
+
+    @FXML
+    private CheckBox adminCheckBox;
+
+    @FXML
+    private CheckBox admissionCheckBox;
+
 
     SignUpBO signUpBO = (SignUpBO) BOFactory.getBO(BOFactory.BOType.SIGNUP);
     @FXML
@@ -52,6 +61,12 @@ public class SignUpFormController {
                  userDTO.setUserName(inputUserName.getText().trim());
                  userDTO.setPassword(PasswordStorage.hashPassword(inputPassword.getText().trim()));
 
+                 if (adminCheckBox.isSelected()) {
+                     userDTO.setRole("Admin");
+                 } else {
+                     userDTO.setRole("Admissions Coordinator");
+                 }
+
                  try {
                      signUpBO.signUp(userDTO);
                  } catch (UserAlreadyExistsException e) {
@@ -60,6 +75,8 @@ public class SignUpFormController {
 
                  inputUserName.clear();
                  inputPassword.clear();
+                 adminCheckBox.setSelected(false);
+                 admissionCheckBox.setSelected(false);
              }else {
                  new Alert(Alert.AlertType.WARNING,"Please Enter All Fields !!").show();
              }
@@ -67,8 +84,22 @@ public class SignUpFormController {
 
     }
 
+
+    @FXML
+    void adminCheckBoxOnAction(ActionEvent event) {
+        adminCheckBox.setSelected(true);
+        admissionCheckBox.setSelected(false);
+    }
+
+    @FXML
+    void admissionCheckBoxOnAction(ActionEvent event) {
+        admissionCheckBox.setSelected(true);
+        adminCheckBox.setSelected(false);
+    }
+
+
     public boolean isValied(){
-        return !inputUserName.getText().isEmpty() && !inputPassword.getText().isEmpty();
+        return !inputUserName.getText().isEmpty() && !inputPassword.getText().isEmpty()&& (adminCheckBox.isSelected() || admissionCheckBox.isSelected());
     }
 
 }

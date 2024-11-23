@@ -6,6 +6,8 @@ import entity.Enrollment;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.List;
+
 public class EnrollmentDAOImpl  implements EnrollmentDAO {
     @Override
     public void save(Enrollment enrollment) {
@@ -42,13 +44,24 @@ public class EnrollmentDAOImpl  implements EnrollmentDAO {
                 "WHERE s.studentId = :studentId " +
                 "AND c.programName = :programName";
 
-        enrollment = session.createQuery(hql, Enrollment.class)
+        List<Enrollment> enrollments = session.createQuery(hql, Enrollment.class)
                 .setParameter("studentId", studentId)
                 .setParameter("programName", programName)
-                .uniqueResult();
+                .getResultList();
 
         transaction.commit();
         session.close();
+
+        if (enrollments.isEmpty()) {
+            // No results found
+            return null; // or throw an exception if preferred
+        } else if (enrollments.size() > 1) {
+            // More than one result found, handle this case
+            throw new IllegalStateException("Multiple enrollments found for studentId: " + studentId + " and programName: " + programName);
+        } else {
+            // Exactly one result found
+            enrollment = enrollments.get(0);
+        }
 
         return enrollment;
     }

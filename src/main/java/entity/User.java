@@ -18,8 +18,11 @@ public class User {
     private String userName ;
     private String Password ;
 
-    public User(String userName, String password) {
+    private String role;
+
+    public User(String userName, String password, String role) {
         this.userName = userName;
-        Password = password;
+        this.Password = password;
+        this.role = role;
     }
 }

@@ -15,7 +15,7 @@ public class LoginBOImpl implements LoginBO {
     public UserDTO getUser(String userName) throws InvalidCredentialsException {
         try {
             User user = userDAO.getUser(userName);
-            return new UserDTO(user.getUserId(),user.getUserName(),user.getPassword());
+            return new UserDTO(user.getUserId(),user.getUserName(),user.getPassword(),user.getRole());
         } catch (Exception e){
             throw new InvalidCredentialsException(e.getMessage());
         }
