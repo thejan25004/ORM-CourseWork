@@ -19,7 +19,7 @@ import util.Regex;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProgramFormController {
+public class  ProgramFormController {
     @FXML
     private TableColumn<?, ?> colDuration;
 

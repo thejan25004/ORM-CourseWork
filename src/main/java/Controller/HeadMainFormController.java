@@ -5,8 +5,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -56,7 +58,12 @@ public class HeadMainFormController {
 
     @FXML
     void btnSettingOnAction(ActionEvent event) {
+        try {
+            changeForm.getChildren().setAll((Node) FXMLLoader.load(this.getClass().getResource("/settingForm.fxml")));
 
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -81,6 +88,14 @@ public class HeadMainFormController {
 
     @FXML
     void logOutAction(MouseEvent event) {
-
+        try {
+            Scene scene = new Scene(FXMLLoader.load(this.getClass().getResource("/loginForm.fxml")));
+            Stage stage = (Stage) dashboardFrom.getScene().getWindow();
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

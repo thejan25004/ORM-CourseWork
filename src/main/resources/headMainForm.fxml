@@ -76,9 +76,9 @@
             </JFXButton>
          </children>
       </AnchorPane>
-      <ImageView fitHeight="39.0" fitWidth="32.0" layoutX="1001.0" layoutY="42.0" onMouseClicked="#logOutAction" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="33.0" fitWidth="32.0" layoutX="1015.0" layoutY="42.0" onMouseClicked="#logOutAction" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/icons8-logout-24.png" />
+            <Image url="@images/018_128_arrow_exit_logout-512.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
