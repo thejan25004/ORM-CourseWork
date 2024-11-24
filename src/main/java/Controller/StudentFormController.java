@@ -77,6 +77,21 @@ public class StudentFormController {
         setCellValueFactory();
         loadAllStudent();
         setChoiceBoxData();
+
+        tblStudent.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                populateTextFields(newValue);
+            }
+        });
+    }
+
+    private void populateTextFields(StudentTm studentTm) {
+        txtId.setText(studentTm.getStudentId());
+        txtName.setText(studentTm.getName());
+        txtAddress.setText(studentTm.getAddress());
+        txtTel.setText(studentTm.getTel().toString());
+        registerDatePicker.setValue(studentTm.getRegistrationDate().toLocalDate());
+        programChoiceBox.setValue(studentTm.getProgram().getText());
     }
 
     private void setChoiceBoxData() {

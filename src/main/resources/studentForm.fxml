@@ -29,12 +29,12 @@
       </Text>
       <TableView fx:id="tblStudent" layoutX="31.0" layoutY="330.0" prefHeight="200.0" prefWidth="944.0" stylesheets="@style/table.css">
         <columns>
-          <TableColumn fx:id="colId" prefWidth="154.0" text="StudentID" />
-          <TableColumn fx:id="colName" prefWidth="146.0" text="Student Name" />
-            <TableColumn fx:id="colAddress" prefWidth="166.0" text="Student Address" />
-            <TableColumn fx:id="colTel" prefWidth="174.0" text="Student Telephone" />
-            <TableColumn fx:id="colRegisterDate" prefWidth="147.0" text="Registeration Date" />
-            <TableColumn fx:id="colProgram" prefWidth="156.0" text="Progam" />
+          <TableColumn fx:id="colId" prefWidth="154.0" text="studentId" />
+          <TableColumn fx:id="colName" prefWidth="146.0" text="name" />
+            <TableColumn fx:id="colAddress" prefWidth="166.0" text="address" />
+            <TableColumn fx:id="colTel" prefWidth="174.0" text="tel" />
+            <TableColumn fx:id="colRegisterDate" prefWidth="147.0" text="registrationDate" />
+            <TableColumn fx:id="colProgram" prefWidth="156.0" text="program" />
         </columns>
       </TableView>
       <JFXButton layoutX="848.0" layoutY="83.0" onAction="#btnSaveOnAction" prefHeight="38.0" prefWidth="116.0" style="-fx-background-radius: 10; -fx-background-color: #7cfc00;" text="Save">
